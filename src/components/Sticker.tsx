@@ -1,22 +1,32 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
-import { getBackgroundImageUrl, getGuildName, getSetName } from "../functions";
+import React from "react";
+import { getBackgroundImageUrl, getGuildName, getSetName, sanitizeManaSymbols } from "../functions";
+import { Sticker as StickerType } from "../types";
 import 'keyrune/css/keyrune.css';
+ // todo: move to index.css or main.tsx?
 
-const Sticker = ({ sticker, index, isSelected, onClick, onDragStart, onDragOver, onDrop }) => {
+interface StickerProps {
+    sticker: StickerType | null;
+    index: number;
+    isSelected: boolean;
+    onClick: (stickerIndex: number) => void;
+    onDragStart: (event: React.DragEvent, stickerIndex: number) => void;
+    onDrop: (event: React.DragEvent, stickerIndex: number) => void;
+}
+
+const Sticker: React.FC<StickerProps> = ({ sticker, index, isSelected, onClick, onDragStart, onDrop }) => {
+
     const guild = getGuildName(sticker?.manaSymbols);
     const backgroundImageUrl = getBackgroundImageUrl(sticker?.manaSymbols);
 
-    const classes = classNames(
-        "relative flex flex-col w-[63.5mm] h-[38.1mm] p-1 bg-white border print:border-0 rounded-md cursor-pointer hover:bg-gray-200",
-        { "border-blue-500": isSelected },
-    );
-
     return (
         <div
-            className={classes}
+            className={classNames(
+                "relative flex flex-col w-[63.5mm] h-[38.1mm] p-1 bg-white border print:border-0 rounded-md cursor-pointer hover:bg-gray-200",
+                { "border-blue-500": isSelected },
+            )}
             onClick={() => onClick(index)}
-            draggable
+            draggable="true"
             onDragStart={(e) => onDragStart(e, index)}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => onDrop(e, index)}
@@ -33,16 +43,16 @@ const Sticker = ({ sticker, index, isSelected, onClick, onDragStart, onDragOver,
                 <div className="flex flex-col">
                     {sticker?.format && (
                         <>
-                            {sticker.format === "Commander" && (
+                            {/*{sticker.format === "Commander" && (
                                 <img
                                     src="/src/assets/images/symbols/Commander.svg"
                                     alt=""
                                     className="w-8 h-8"
                                 />
-                            )}
+                            )}*/}
 
                             <div className="text-center text-xs text-gray-500">
-                                {sticker.format}
+                                {sticker.title === 'Goblins' ? 'Goblins' : sticker.format}
                             </div>
                         </>
                     )}
@@ -50,7 +60,7 @@ const Sticker = ({ sticker, index, isSelected, onClick, onDragStart, onDragOver,
 
                 <div className="flex flex-col">
                     <div className="flex gap-1 justify-end">
-                        {sticker?.manaSymbols && sticker.manaSymbols.split('').map((symbol, index) => (
+                        {sticker?.manaSymbols && sanitizeManaSymbols(sticker.manaSymbols).split('').map((symbol, index) => (
                             <img
                                 key={index}
                                 src={`/src/assets/images/symbols/${symbol}.svg`}
@@ -60,15 +70,23 @@ const Sticker = ({ sticker, index, isSelected, onClick, onDragStart, onDragOver,
                         ))}
                     </div>
                     <div className="text-right text-xs text-gray-500">
-                        {guild}
+                        {sticker?.title === 'Goblins' ? (
+                            <>
+                                Goblins ({guild})
+                            </>
+                        ) : (
+                            <>
+                                {guild}
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
             <div className="flex flex-col flex-grow items-center justify-center text-center font-beleren text-2xl">
-                {sticker?.name}
-                {sticker?.playstyle && (
+                {sticker?.title}
+                {sticker?.subtitle && (
                     <div className="text-sm text-gray-500">
-                        {sticker.playstyle}
+                        {sticker.subtitle}
                     </div>
                 )}
             </div>
@@ -87,22 +105,5 @@ const Sticker = ({ sticker, index, isSelected, onClick, onDragStart, onDragOver,
         </div>
     );
 }
-
-Sticker.propTypes = {
-    sticker: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        playstyle: PropTypes.string.isRequired,
-        manaSymbols: PropTypes.string.isRequired,
-        format: PropTypes.string.isRequired,
-        isPrecon: PropTypes.bool.isRequired,
-        set: PropTypes.string.isRequired,
-    }),
-    index: PropTypes.number.isRequired,
-    isSelected: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired,
-    onDragStart: PropTypes.func.isRequired,
-    onDragOver: PropTypes.func.isRequired,
-    onDrop: PropTypes.func.isRequired,
-};
 
 export default Sticker;

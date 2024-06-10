@@ -1,8 +1,8 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
-import Sticker from "./Sticker.jsx";
+import Sticker from "./Sticker.tsx";
+import React from "react";
 
-const StickerSheet = ({ stickers, selectedStickerIndex, onStickerClick, onStickerDragDrop }) => {
+const StickerSheet = React.forwardRef(({ stickers, selectedStickerIndex, onStickerClick, onStickerDragDrop }, ref) => {
     const handleDragStart = (e, index) => {
         e.dataTransfer.setData('dragIndex', index);
     }
@@ -26,7 +26,7 @@ const StickerSheet = ({ stickers, selectedStickerIndex, onStickerClick, onSticke
     );
 
     return (
-        <div className={classes}>
+        <div className={classes} ref={ref}>
             {[...Array(21)].map((_, index) => (
                 <Sticker
                     key={index}
@@ -35,28 +35,12 @@ const StickerSheet = ({ stickers, selectedStickerIndex, onStickerClick, onSticke
                     isSelected={selectedStickerIndex === index}
                     onClick={onStickerClick}
                     onDragStart={handleDragStart}
-                    onDragOver={(e) => e.preventDefault()}
+                    // onDragOver={(e) => e.preventDefault()}
                     onDrop={handleDrop}
                 />
             ))}
         </div>
     );
-}
-
-StickerSheet.propTypes = {
-    stickers: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            playstyle: PropTypes.string.isRequired,
-            manaSymbols: PropTypes.string.isRequired,
-            format: PropTypes.string.isRequired,
-            isPrecon: PropTypes.bool.isRequired,
-            set: PropTypes.string.isRequired,
-        })
-    ).isRequired,
-    selectedStickerIndex: PropTypes.number.isRequired,
-    onStickerClick: PropTypes.func.isRequired,
-    onStickerDragDrop: PropTypes.func.isRequired,
-};
+});
 
 export default StickerSheet;
