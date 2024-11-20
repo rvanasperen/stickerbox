@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Editor from "./components/Editor";
 import StickerSheet from "./components/StickerSheet";
-import { Sticker as StickerType } from "./types";
+import { StickerData as StickerType } from "./types";
 import { useReactToPrint } from "react-to-print";
 
 const App: React.FC = () => {
@@ -40,6 +40,9 @@ const App: React.FC = () => {
     return (
         <>
             <h1 className="text-2xl font-bold mb-4 font-beleren">Stickerbox</h1>
+            <p className="mb-4 text-gray-500">
+                Supported sticker sheet format: HERMA 8632
+            </p>
 
             <div className="flex gap-4">
                 <StickerSheet

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Sticker as StickerType } from "../types";
+import { StickerData as StickerType } from "../types";
 
 interface EditorProps {
     sticker: StickerType | null;

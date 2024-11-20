@@ -1,4 +1,4 @@
-export interface Sticker {
+export interface StickerData {
     title: string;
     subtitle: string;
     manaSymbols: string;

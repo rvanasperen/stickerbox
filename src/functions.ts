@@ -1,4 +1,4 @@
-export function getBackgroundImageUrl(manaSymbols: string | null) {
+export function getBackgroundImageUrl(manaSymbols: string): string | null {
     const sanitizedManaSymbols = sanitizeManaSymbols(manaSymbols);
 
     if (!sanitizedManaSymbols) {
@@ -28,14 +28,14 @@ export function getBackgroundImageUrl(manaSymbols: string | null) {
     return null;
 }
 
-export function getGuildName(manaSymbols: string | null) {
+export function getGuildName(manaSymbols: string): string {
     const sanitizedManaSymbols = sanitizeManaSymbols(manaSymbols);
 
     if (!sanitizedManaSymbols) {
-        return null;
+        return '';
     }
 
-    const guilds = {
+    const guilds: {[index: string]: string} = {
         C: 'Colorless',
         W: 'White',
         U: 'Blue',
@@ -70,25 +70,12 @@ export function getGuildName(manaSymbols: string | null) {
         WUBRG: 'Rainbow',
     };
 
-    return guilds[sanitizedManaSymbols] || null;
+    return guilds[sanitizedManaSymbols.toUpperCase()] || '';
 }
 
-// todo: use external lib
-export function getSetName(setCode: string | null) {
-    const sets = {
-        AVR: 'Avacyn Restored',
-        C13: 'Commander 2013',
-        GTC: 'Gatecrash',
-        LTR: 'Tales of Middle Earth',
-        NPH: 'New Phyrexia',
-    };
-
-    return sets[setCode];
-}
-
-export function sanitizeManaSymbols(manaSymbols: string | null) {
+export function sanitizeManaSymbols(manaSymbols: string): string {
     if (!manaSymbols) {
-        return null;
+        return '';
     }
 
     const sortOrder = ['w', 'u', 'b', 'r', 'g', 'W', 'U', 'B', 'R', 'G'];
@@ -107,5 +94,5 @@ export function sanitizeManaSymbols(manaSymbols: string | null) {
         .sort((a, b) => sortOrder.indexOf(a) - sortOrder.indexOf(b))
         .join('');
 
-    return sanitizedSymbols || null;
+    return sanitizedSymbols || '';
 }

@@ -1,8 +1,16 @@
 import classNames from "classnames";
 import Sticker from "./Sticker.tsx";
 import React from "react";
+import { StickerData } from "../types.ts";
 
-const StickerSheet = React.forwardRef(({ stickers, selectedStickerIndex, onStickerClick, onStickerDragDrop }, ref) => {
+interface IStickerSheetProps {
+    stickers: StickerData[];
+    selectedStickerIndex: number;
+    onStickerClick: (index: number) => void;
+    onStickerDragDrop: (dragIndex: number, dropIndex: number) => void;
+}
+
+const StickerSheet = React.forwardRef(({ stickers, selectedStickerIndex, onStickerClick, onStickerDragDrop }: IStickerSheetProps, ref) => {
     const handleDragStart = (e, index) => {
         e.dataTransfer.setData('dragIndex', index);
     }

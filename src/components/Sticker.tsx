@@ -1,12 +1,12 @@
 import classNames from "classnames";
-import React from "react";
-import { getBackgroundImageUrl, getGuildName, getSetName, sanitizeManaSymbols } from "../functions";
-import { Sticker as StickerType } from "../types";
+import React, { useEffect, useState } from "react";
+import { getBackgroundImageUrl, getGuildName, sanitizeManaSymbols } from "../functions";
+import { StickerData } from "../types";
 import 'keyrune/css/keyrune.css';
  // todo: move to index.css or main.tsx?
 
-interface StickerProps {
-    sticker: StickerType | null;
+interface IStickerProps {
+    sticker: StickerData | null;
     index: number;
     isSelected: boolean;
     onClick: (stickerIndex: number) => void;
@@ -14,10 +14,19 @@ interface StickerProps {
     onDrop: (event: React.DragEvent, stickerIndex: number) => void;
 }
 
-const Sticker: React.FC<StickerProps> = ({ sticker, index, isSelected, onClick, onDragStart, onDrop }) => {
+const Sticker: React.FC<IStickerProps> = ({ sticker, index, isSelected, onClick, onDragStart, onDrop }: IStickerProps) => {
+    const [guild, setGuild] = useState('');
+    const [backgroundImageUrl, setBackgroundImageUrl] = useState('');
 
-    const guild = getGuildName(sticker?.manaSymbols);
-    const backgroundImageUrl = getBackgroundImageUrl(sticker?.manaSymbols);
+    useEffect(() => {
+        if (!sticker) {
+            return;
+        }
+
+        setGuild(getGuildName(sticker.manaSymbols));
+        setBackgroundImageUrl(getBackgroundImageUrl(sticker.manaSymbols) || '');
+
+    }, [sticker]);
 
     return (
         <div
@@ -52,7 +61,7 @@ const Sticker: React.FC<StickerProps> = ({ sticker, index, isSelected, onClick, 
                             )}*/}
 
                             <div className="text-center text-xs text-gray-500">
-                                {sticker.title === 'Goblins' ? 'Goblins' : sticker.format}
+                                {sticker?.title === 'Goblins' ? 'Goblins' : sticker?.format}
                             </div>
                         </>
                     )}
@@ -60,7 +69,7 @@ const Sticker: React.FC<StickerProps> = ({ sticker, index, isSelected, onClick, 
 
                 <div className="flex flex-col">
                     <div className="flex gap-1 justify-end">
-                        {sticker?.manaSymbols && sanitizeManaSymbols(sticker.manaSymbols).split('').map((symbol, index) => (
+                        {sticker?.manaSymbols && sanitizeManaSymbols(sticker?.manaSymbols).split('').map((symbol, index) => (
                             <img
                                 key={index}
                                 src={`/src/assets/images/symbols/${symbol}.svg`}
@@ -91,16 +100,7 @@ const Sticker: React.FC<StickerProps> = ({ sticker, index, isSelected, onClick, 
                 )}
             </div>
             <div className="h-6 flex items-end justify-between text-gray-500 text-sm text-right">
-                <div>
-                    {sticker?.isPrecon && "Precon"}
-                </div>
-
-                {sticker?.set && (
-                    <div className="flex items-center gap-1">
-                        {getSetName(sticker.set.toUpperCase())}
-                        <i className={`ss ss-${sticker.set.toLowerCase()}`}></i>
-                    </div>
-                )}
+                {/* reserved space */}
             </div>
         </div>
     );
