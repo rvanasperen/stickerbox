@@ -59,7 +59,7 @@ const App: React.FC = () => {
                         onStickerUpdate={handleStickerUpdate}
                     />
 
-                    <button className="mt-4 bg-green-300 px-4 py-2 rounded shadow" onClick={handlePrint}>
+                    <button className="mt-4 bg-green-300 px-4 py-2 rounded-sm shadow-sm" onClick={handlePrint}>
                         Print!
                     </button>
                 </div>

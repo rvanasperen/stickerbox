@@ -73,7 +73,7 @@ const Sticker: React.FC<IStickerProps> = ({ sticker, index, isSelected, onClick,
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col flex-grow items-center justify-center text-center font-beleren text-2xl">
+            <div className="flex flex-col grow items-center justify-center text-center font-beleren text-2xl">
                 {sticker?.title}
                 {sticker?.subtitle && (
                     <div className="text-sm text-gray-500">
