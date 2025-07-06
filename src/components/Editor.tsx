@@ -58,17 +58,9 @@ export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
 
             <TextInput label="Subtitle" name="subtitle" onChange={handleChange} placeholder="E.g. Krenko, Bob Ross" value={formData.subtitle || ''} />
 
-            <TextInput
-                helperText="(Top left)"
-                label="Format"
-                name="format"
-                onChange={handleChange}
-                placeholder="E.g. Commander"
-                value={formData.format || ''}
-            />
+            <TextInput label="Format" name="format" onChange={handleChange} placeholder="E.g. Commander" value={formData.format || ''} />
 
             <TextInput
-                helperText="(Bottom left, values 1-5)"
                 label="Bracket"
                 name="bracket"
                 onChange={handleChange}
@@ -79,13 +71,7 @@ export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
                 max={5}
             />
 
-            <ManaSymbolSelector
-                helperText="(Top right)"
-                label="Mana Symbols"
-                name="manaSymbols"
-                onChange={handleChange}
-                value={formData.manaSymbols || []}
-            />
+            <ManaSymbolSelector label="Color Identity" name="manaSymbols" onChange={handleChange} value={formData.manaSymbols || []} />
         </div>
     );
 }
