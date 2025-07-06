@@ -94,6 +94,19 @@ export default function App() {
     const stickerSheetRef = useRef(null);
     const handlePrint = useReactToPrint({
         content: () => stickerSheetRef.current,
+        pageStyle: `
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 297mm;
+                overflow: hidden;
+            }
+        `,
+        removeAfterPrint: true,
     });
 
     return (

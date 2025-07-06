@@ -56,30 +56,22 @@ const StickerSheet = React.forwardRef(function StickerSheet(
     );
 
     return (
-        <div className="relative">
-            <div className="absolute -top-6 right-0 left-0 flex justify-center">
-                <div className="bg-primary-light rounded-t-md px-3 py-1 text-xs font-medium text-white shadow-sm print:shadow-none">
-                    HERMA 8632 • 210mm × 297mm
-                </div>
-            </div>
-
-            <div className={classes} ref={ref}>
-                {[...Array(21)].map((_, index) => (
-                    <Sticker
-                        key={index}
-                        ref={(el) => (stickerRefs.current[index] = el)}
-                        sticker={stickers[index]}
-                        index={index}
-                        isSelected={selectedStickerIndex === index}
-                        isDragOver={dragOverIndex === index}
-                        onClick={onStickerClick}
-                        onDragStart={handleDragStart}
-                        onDragOver={() => handleDragOver(index)}
-                        onDragLeave={handleDragLeave}
-                        onDrop={handleDrop}
-                    />
-                ))}
-            </div>
+        <div className={classes} ref={ref}>
+            {[...Array(21)].map((_, index) => (
+                <Sticker
+                    key={index}
+                    ref={(el) => (stickerRefs.current[index] = el)}
+                    sticker={stickers[index]}
+                    index={index}
+                    isSelected={selectedStickerIndex === index}
+                    isDragOver={dragOverIndex === index}
+                    onClick={onStickerClick}
+                    onDragStart={handleDragStart}
+                    onDragOver={() => handleDragOver(index)}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                />
+            ))}
         </div>
     );
 });
