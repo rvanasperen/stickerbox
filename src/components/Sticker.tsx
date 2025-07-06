@@ -51,19 +51,9 @@ const Sticker: React.FC<IStickerProps> = ({ sticker, index, isSelected, onClick,
             <div className="h-8 flex justify-between">
                 <div className="flex flex-col">
                     {sticker?.format && (
-                        <>
-                            {/*{sticker.format === "Commander" && (
-                                <img
-                                    src="/src/assets/images/symbols/Commander.svg"
-                                    alt=""
-                                    className="w-8 h-8"
-                                />
-                            )}*/}
-
-                            <div className="text-center text-xs text-gray-500">
-                                {sticker?.title === 'Goblins' ? 'Goblins' : sticker?.format}
-                            </div>
-                        </>
+                        <div className="text-center text-xs text-gray-500">
+                            {sticker.format}
+                        </div>
                     )}
                 </div>
 
@@ -79,15 +69,7 @@ const Sticker: React.FC<IStickerProps> = ({ sticker, index, isSelected, onClick,
                         ))}
                     </div>
                     <div className="text-right text-xs text-gray-500">
-                        {sticker?.title === 'Goblins' ? (
-                            <>
-                                Goblins ({guild})
-                            </>
-                        ) : (
-                            <>
-                                {guild}
-                            </>
-                        )}
+                        {guild}
                     </div>
                 </div>
             </div>
