@@ -39,43 +39,41 @@ const Editor: React.FC<EditorProps> = ({ sticker, onStickerUpdate }) => {
     };
 
     return (
-        <>
-            <div className="flex flex-col gap-4">
-                <TextInput
-                    label="Title"
-                    name="title"
-                    onChange={handleChange}
-                    placeholder="E.g. Goblins'R'Us"
-                    value={formData.title || ''}
-                />
+        <div className="flex flex-col gap-4">
+            <TextInput
+                label="Title"
+                name="title"
+                onChange={handleChange}
+                placeholder="E.g. Goblins'R'Us"
+                value={formData.title || ''}
+            />
 
-                <TextInput
-                    label="Subtitle"
-                    name="subtitle"
-                    onChange={handleChange}
-                    placeholder="E.g. Krenko, Bob Ross"
-                    value={formData.subtitle || ''}
-                />
+            <TextInput
+                label="Subtitle"
+                name="subtitle"
+                onChange={handleChange}
+                placeholder="E.g. Krenko, Bob Ross"
+                value={formData.subtitle || ''}
+            />
 
-                <TextInput
-                    helperText="(Top left)"
-                    label="Format"
-                    name="format"
-                    onChange={handleChange}
-                    placeholder="E.g. Commander"
-                    value={formData.format || ''}
-                />
+            <TextInput
+                helperText="(Top left)"
+                label="Format"
+                name="format"
+                onChange={handleChange}
+                placeholder="E.g. Commander"
+                value={formData.format || ''}
+            />
 
-                <TextInput
-                    helperText="(Top right)"
-                    label="Mana Symbols"
-                    name="manaSymbols"
-                    onChange={handleChange}
-                    placeholder="E.g. rgb"
-                    value={formData.manaSymbols || ''}
-                />
-            </div>
-        </>
+            <TextInput
+                helperText="(Top right)"
+                label="Mana Symbols"
+                name="manaSymbols"
+                onChange={handleChange}
+                placeholder="E.g. rgb"
+                value={formData.manaSymbols || ''}
+            />
+        </div>
     );
 };
 
