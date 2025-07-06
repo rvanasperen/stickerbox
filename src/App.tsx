@@ -119,17 +119,19 @@ export default function App() {
                 </div>
 
                 <div className="animate-slide-in md:w-1/3" style={{ animationDelay: '0.1s' }}>
-                    <div className="bg-surface mb-4 rounded-lg p-6 shadow-md">
-                        <h2 className="font-beleren text-primary-dark mb-4 text-2xl">Editor</h2>
-                        <Editor sticker={stickers[selectedStickerIndex] || null} onStickerUpdate={handleStickerUpdate} />
-                    </div>
+                    <div className="sticky top-4">
+                        <div className="bg-surface mb-4 rounded-lg p-6 shadow-md">
+                            <h2 className="font-beleren text-primary-dark mb-4 text-2xl">Editor</h2>
+                            <Editor sticker={stickers[selectedStickerIndex] || null} onStickerUpdate={handleStickerUpdate} />
+                        </div>
 
-                    <button
-                        className="bg-primary hover:bg-primary-dark focus:ring-primary-light w-full rounded-lg px-6 py-3 font-bold text-white shadow-md transition-all hover:shadow-lg focus:ring-2 focus:outline-none"
-                        onClick={handlePrint}
-                    >
-                        Print Stickers
-                    </button>
+                        <button
+                            className="bg-primary hover:bg-primary-dark focus:ring-primary-light w-full rounded-lg px-6 py-3 font-bold text-white shadow-md transition-all hover:shadow-lg focus:ring-2 focus:outline-none"
+                            onClick={handlePrint}
+                        >
+                            Print Stickers
+                        </button>
+                    </div>
                 </div>
             </main>
 
