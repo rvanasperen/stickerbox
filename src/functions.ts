@@ -15,15 +15,12 @@ export function getBackgroundImageUrl(manaSymbols: string): string | null {
         return null;
     }
 
-    if (sanitizedManaSymbols.length === 2) {
+    if ([2, 3].includes(sanitizedManaSymbols.length)) {
         return `/src/assets/images/guilds/${guild.toLowerCase()}.png`;
     }
 
-    if (sanitizedManaSymbols.length === 3) {
-        return `/src/assets/images/guilds/${guild.toLowerCase()}.jpg`;
-    }
-
-    // todo: 4+5 color symbols
+    // Note: 3-color guilds are fan-made. There are no known images for 4/5
+    // color guilds
 
     return null;
 }

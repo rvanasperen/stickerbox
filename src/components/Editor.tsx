@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StickerData } from '../types';
-import { TextInput } from './form';
+import { ManaSymbolSelector, TextInput } from './form';
 
 const defaultFormData: Partial<StickerData> = {
     title: '',
@@ -53,12 +53,11 @@ export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
                 value={formData.format || ''}
             />
 
-            <TextInput
+            <ManaSymbolSelector
                 helperText="(Top right)"
                 label="Mana Symbols"
                 name="manaSymbols"
                 onChange={handleChange}
-                placeholder="E.g. rgb"
                 value={formData.manaSymbols || ''}
             />
         </div>
