@@ -150,14 +150,26 @@ export default function App() {
                 </div>
             </main>
 
-            <footer className="mt-12 border-t border-gray-200 pt-8 pb-8 text-center text-sm text-gray-500 print:hidden">
-                <p className="mb-2">
+            <footer className="mt-12 flex flex-col gap-1 border-t border-gray-200 pt-8 pb-8 text-center text-sm text-gray-500 print:hidden">
+                <p>
+                    This project is{' '}
+                    <a
+                        href="https://github.com/rvanasperen/stickerbox"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-700 hover:underline"
+                    >
+                        open source
+                    </a>{' '}
+                    software
+                </p>
+                <p>
                     Vibe-coded with ❤️ with help of{' '}
                     <a href="https://www.jetbrains.com/junie/" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline">
                         Junie
                     </a>
                 </p>
-                <p className="mb-2">
+                <p>
                     Fan-made 3-color guild logos created by{' '}
                     <a
                         href="https://www.reddit.com/r/magicTCG/comments/bhpjom/ravnican_guilds_cooperation_symbols/"
@@ -166,17 +178,6 @@ export default function App() {
                         className="text-blue-700 hover:underline"
                     >
                         /u/WeedyCS
-                    </a>
-                </p>
-                <p className="mb-2">
-                    Shout out to my homies over at{' '}
-                    <a
-                        href="https://www.reddit.com/r/magicthecirclejerking"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-700 hover:underline"
-                    >
-                        /r/magicthecirclejerking
                     </a>
                 </p>
                 <p>Magic: The Gathering is copyrighted by Wizards of the Coast LLC, a subsidiary of Hasbro, Inc.</p>
