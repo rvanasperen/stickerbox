@@ -2,10 +2,20 @@
 
 A Magic: The Gathering deckbox sticker designer tool.
 
-## Running the project
+## Running the project locally
 
 ```bash
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
 ```
 
-To be updated.
+## Building for production
+
+```bash
+npm run build
+```
+
+This will create a `dist` directory with the built application.
