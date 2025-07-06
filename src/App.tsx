@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import Editor from './components/Editor';
 import StickerSheet from './components/StickerSheet';
 import { StickerData } from './types';
 
-const App: React.FC = () => {
+export default function App() {
     const [stickers, setStickers] = useState<StickerData[]>(() => {
         const storedStickers = localStorage.getItem('stickers');
         return storedStickers ? JSON.parse(storedStickers) : [];
     });
-    const [selectedStickerIndex, setSelectedStickerIndex] = useState(0);
+    const [selectedStickerIndex, setSelectedStickerIndex] = useState<number>(0);
 
     useEffect(() => {
         localStorage.setItem('stickers', JSON.stringify(stickers));
@@ -61,6 +61,4 @@ const App: React.FC = () => {
             </div>
         </>
     );
-};
-
-export default App;
+}
