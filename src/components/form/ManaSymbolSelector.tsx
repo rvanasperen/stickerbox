@@ -105,7 +105,7 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
                         title={getSymbolTitle(symbol)}
                     >
                         <img
-                            src={`/images/symbols/${symbol}.svg`}
+                            src={`${import.meta.env.BASE_URL}images/symbols/${symbol}.svg`}
                             alt={symbol}
                             className={`h-8 w-8 drop-shadow-sm ${isSymbolSelected(symbol) ? '' : 'opacity-10'}`}
                         />
