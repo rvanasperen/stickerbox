@@ -20,7 +20,7 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
                 value: toggleSymbol(value, symbol),
                 type: 'text',
             },
-        } as React.ChangeEvent<HTMLInputElement>;
+        } as unknown as React.ChangeEvent<HTMLInputElement>;
 
         onChange(syntheticEvent);
     };
@@ -104,7 +104,11 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
                         onClick={() => handleSymbolClick(symbol)}
                         title={getSymbolTitle(symbol)}
                     >
-                        <img src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`} alt={symbol} className="h-8 w-8 drop-shadow-sm" />
+                        <img
+                            src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`}
+                            alt={symbol}
+                            className={`h-8 w-8 drop-shadow-sm ${isSymbolSelected(symbol) ? '' : 'opacity-40 grayscale'}`}
+                        />
                     </button>
                 ))}
             </div>
