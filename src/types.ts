@@ -5,4 +5,5 @@ export interface StickerData {
     subtitle: string;
     manaSymbols: ManaSymbol[];
     format: string;
+    bracket?: number; // Values from 1 to 5
 }

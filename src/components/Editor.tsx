@@ -7,6 +7,7 @@ const defaultFormData: Partial<StickerData> = {
     subtitle: '',
     manaSymbols: [] as ManaSymbol[],
     format: '',
+    bracket: undefined,
 };
 
 interface IEditorProps {
@@ -27,7 +28,20 @@ export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
-        const newValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+        let newValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+
+        // Special handling for bracket field
+        if (name === 'bracket' && value !== '') {
+            const bracketValue = parseInt(value as string, 10);
+            if (isNaN(bracketValue) || bracketValue < 1 || bracketValue > 5) {
+                // Invalid bracket value, don't update
+                return;
+            }
+            newValue = bracketValue;
+        } else if (name === 'bracket' && value === '') {
+            // Empty bracket value, set to undefined
+            newValue = undefined;
+        }
 
         const updatedFormData = {
             ...formData,
@@ -59,6 +73,18 @@ export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
                 name="manaSymbols"
                 onChange={handleChange}
                 value={formData.manaSymbols || []}
+            />
+
+            <TextInput
+                helperText="(Bottom left, values 1-5)"
+                label="Bracket"
+                name="bracket"
+                onChange={handleChange}
+                placeholder="Enter a value from 1 to 5"
+                value={formData.bracket?.toString() || ''}
+                type="number"
+                min={1}
+                max={5}
             />
         </div>
     );

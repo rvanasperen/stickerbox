@@ -7,9 +7,12 @@ interface ITextInputProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     placeholder?: string;
     value: string;
+    type?: string;
+    min?: number;
+    max?: number;
 }
 
-export function TextInput({ helperText, label, name, onChange, placeholder, value }: ITextInputProps) {
+export function TextInput({ helperText, label, name, onChange, placeholder, value, type = 'text', min, max }: ITextInputProps) {
     return (
         <div className="mb-4">
             <label htmlFor={name} className="text-primary-dark mb-1 block text-sm font-bold uppercase">
@@ -22,7 +25,9 @@ export function TextInput({ helperText, label, name, onChange, placeholder, valu
                 name={name}
                 onChange={onChange}
                 placeholder={placeholder || label}
-                type="text"
+                type={type}
+                min={min}
+                max={max}
                 value={value}
             />
 

@@ -87,6 +87,9 @@ const Sticker = React.forwardRef(function Sticker(
             </div>
 
             <div className="text-text-light flex h-6 items-end justify-between text-right text-xs">
+                {sticker?.bracket && (
+                    <div className="text-primary-dark rounded-sm bg-gray-100 px-2 py-0.5 text-xs font-medium">Bracket {sticker.bracket}</div>
+                )}
                 {/* reserved space for future sticker input extensions */}
             </div>
         </div>

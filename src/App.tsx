@@ -52,6 +52,7 @@ export default function App() {
                 subtitle: '',
                 manaSymbols: [],
                 format: '',
+                bracket: undefined,
             };
         }
 
@@ -61,6 +62,7 @@ export default function App() {
                 subtitle: '',
                 manaSymbols: [],
                 format: '',
+                bracket: undefined,
             };
         }
 
@@ -81,6 +83,7 @@ export default function App() {
                 subtitle: '',
                 manaSymbols: [],
                 format: '',
+                bracket: undefined,
             });
         }
 
