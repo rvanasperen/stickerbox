@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StickerData } from "../types";
+import { TextInput } from "./form";
 
 interface EditorProps {
     sticker: StickerData | null;
@@ -17,10 +18,10 @@ const Editor: React.FC<EditorProps> = ({ sticker, onStickerUpdate }) => {
     const [formData, setFormData] = useState(defaultFormData);
 
     useEffect(() => {
-        if (!sticker) {
-            setFormData(defaultFormData);
-        } else {
+        if (sticker) {
             setFormData(sticker);
+        } else {
+            setFormData(defaultFormData);
         }
     }, [sticker])
 
@@ -38,54 +39,43 @@ const Editor: React.FC<EditorProps> = ({ sticker, onStickerUpdate }) => {
     };
 
     return (
-        <div>
-            <form>
-                <div>
-                    <input
-                        className="bg-gray-200"
-                        type="text"
-                        name="title"
-                        value={formData.title || ''}
-                        onChange={handleChange}
-                        placeholder="Title"
-                    />
-                </div>
-                <div>
-                    <input
-                        className="bg-gray-200"
-                        type="text"
-                        name="subtitle"
-                        value={formData.subtitle || ''}
-                        onChange={handleChange}
-                        placeholder="Subtitle"
-                    />
-                </div>
-                <div>
-                    <input
-                        className="bg-gray-200"
-                        type="text"
-                        name="manaSymbols"
-                        value={formData.manaSymbols || ''}
-                        onChange={handleChange}
-                        placeholder="Mana Symbols"
-                    />
-                </div>
-                <div>
-                    <select
-                        className="bg-gray-200"
-                        name="format"
-                        value={formData.format || ''}
-                        onChange={handleChange}
-                    >
-                        <option value=""></option>
-                        <option value="Commander">Commander</option>
-                        <option value="Modern">Modern</option>
-                        <option value="Pauper">Pauper</option>
-                        <option value="Standard">Standard</option>
-                    </select>
-                </div>
-            </form>
-        </div>
+        <>
+            <div className="flex flex-col gap-4">
+                <TextInput
+                    label="Title"
+                    name="title"
+                    onChange={handleChange}
+                    placeholder="E.g. Goblins'R'Us"
+                    value={formData.title || ''}
+                />
+
+                <TextInput
+                    label="Subtitle"
+                    name="subtitle"
+                    onChange={handleChange}
+                    placeholder="E.g. Krenko, Bob Ross"
+                    value={formData.subtitle || ''}
+                />
+
+                <TextInput
+                    helperText="(Top left)"
+                    label="Format"
+                    name="format"
+                    onChange={handleChange}
+                    placeholder="E.g. Commander"
+                    value={formData.format || ''}
+                />
+
+                <TextInput
+                    helperText="(Top right)"
+                    label="Mana Symbols"
+                    name="manaSymbols"
+                    onChange={handleChange}
+                    placeholder="E.g. rgb"
+                    value={formData.manaSymbols || ''}
+                />
+            </div>
+        </>
     );
 };
 
