@@ -15,8 +15,12 @@ export function getBackgroundImageUrl(manaSymbols: string): string | null {
         return null;
     }
 
-    if ([2, 3].includes(sanitizedManaSymbols.length)) {
+    if (sanitizedManaSymbols.length === 2) {
         return `/src/assets/images/guilds/${guild.toLowerCase()}.png`;
+    }
+
+    if (sanitizedManaSymbols.length === 3) {
+        return `/src/assets/images/guilds/${guild.toLowerCase()}.jpg`;
     }
 
     // Note: 3-color guilds are fan-made. There are no known images for 4/5
