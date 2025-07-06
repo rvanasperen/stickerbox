@@ -20,7 +20,7 @@ export function getBackgroundImageUrl(manaSymbols: string): string | null {
     }
 
     if (sanitizedManaSymbols.length === 3) {
-        return `/src/assets/images/guilds/${guild.toLowerCase()}.jpg`
+        return `/src/assets/images/guilds/${guild.toLowerCase()}.jpg`;
     }
 
     // todo: 4+5 color symbols
@@ -35,7 +35,7 @@ export function getGuildName(manaSymbols: string): string {
         return '';
     }
 
-    const guilds: {[index: string]: string} = {
+    const guilds: { [index: string]: string } = {
         C: 'Colorless',
         W: 'White',
         U: 'Blue',
@@ -83,7 +83,7 @@ export function sanitizeManaSymbols(manaSymbols: string): string {
 
     const sanitizedSymbols = manaSymbols
         .split('')
-        .filter(char => {
+        .filter((char) => {
             const lowerChar = char.toLowerCase();
             if (sortOrder.includes(char) && !seen.has(lowerChar)) {
                 seen.add(lowerChar);

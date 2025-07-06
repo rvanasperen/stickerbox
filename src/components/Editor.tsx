@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { StickerData } from "../types";
-import { TextInput } from "./form";
-
-interface EditorProps {
-    sticker: StickerData | null;
-    onStickerUpdate: (updatedSticker: StickerData) => void;
-}
+import React, { useEffect, useState } from 'react';
+import { StickerData } from '../types';
+import { TextInput } from './form';
 
 const defaultFormData: Partial<StickerData> = {
     title: '',
@@ -14,7 +9,12 @@ const defaultFormData: Partial<StickerData> = {
     format: '',
 };
 
-const Editor: React.FC<EditorProps> = ({ sticker, onStickerUpdate }) => {
+interface IEditorProps {
+    sticker: StickerData | null;
+    onStickerUpdate: (updatedSticker: StickerData) => void;
+}
+
+export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
     const [formData, setFormData] = useState(defaultFormData);
 
     useEffect(() => {
@@ -23,7 +23,7 @@ const Editor: React.FC<EditorProps> = ({ sticker, onStickerUpdate }) => {
         } else {
             setFormData(defaultFormData);
         }
-    }, [sticker])
+    }, [sticker]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
@@ -31,7 +31,7 @@ const Editor: React.FC<EditorProps> = ({ sticker, onStickerUpdate }) => {
 
         const updatedFormData = {
             ...formData,
-            [name]: newValue
+            [name]: newValue,
         };
 
         setFormData(updatedFormData);
@@ -40,21 +40,9 @@ const Editor: React.FC<EditorProps> = ({ sticker, onStickerUpdate }) => {
 
     return (
         <div className="flex flex-col gap-4">
-            <TextInput
-                label="Title"
-                name="title"
-                onChange={handleChange}
-                placeholder="E.g. Goblins'R'Us"
-                value={formData.title || ''}
-            />
+            <TextInput label="Title" name="title" onChange={handleChange} placeholder="E.g. Goblins'R'Us" value={formData.title || ''} />
 
-            <TextInput
-                label="Subtitle"
-                name="subtitle"
-                onChange={handleChange}
-                placeholder="E.g. Krenko, Bob Ross"
-                value={formData.subtitle || ''}
-            />
+            <TextInput label="Subtitle" name="subtitle" onChange={handleChange} placeholder="E.g. Krenko, Bob Ross" value={formData.subtitle || ''} />
 
             <TextInput
                 helperText="(Top left)"
@@ -75,6 +63,4 @@ const Editor: React.FC<EditorProps> = ({ sticker, onStickerUpdate }) => {
             />
         </div>
     );
-};
-
-export default Editor;
+}

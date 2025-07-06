@@ -1,9 +1,8 @@
-import classNames from "classnames";
-import React, { useEffect, useState } from "react";
-import { getBackgroundImageUrl, getGuildName, sanitizeManaSymbols } from "../functions";
-import { StickerData } from "../types";
+import classNames from 'classnames';
 import 'keyrune/css/keyrune.css';
- // todo: move to index.css or main.tsx?
+import React, { useEffect, useState } from 'react';
+import { getBackgroundImageUrl, getGuildName, sanitizeManaSymbols } from '../functions';
+import { StickerData } from '../types';
 
 interface IStickerProps {
     sticker: StickerData | null;
@@ -14,7 +13,7 @@ interface IStickerProps {
     onDrop: (event: React.DragEvent, stickerIndex: number) => void;
 }
 
-const Sticker: React.FC<IStickerProps> = ({ sticker, index, isSelected, onClick, onDragStart, onDrop }: IStickerProps) => {
+export default function Sticker({ sticker, index, isSelected, onClick, onDragStart, onDrop }: IStickerProps) {
     const [guild, setGuild] = useState('');
     const [backgroundImageUrl, setBackgroundImageUrl] = useState('');
 
@@ -25,14 +24,13 @@ const Sticker: React.FC<IStickerProps> = ({ sticker, index, isSelected, onClick,
 
         setGuild(getGuildName(sticker.manaSymbols));
         setBackgroundImageUrl(getBackgroundImageUrl(sticker.manaSymbols) || '');
-
     }, [sticker]);
 
     return (
         <div
             className={classNames(
-                "relative flex flex-col w-[63.5mm] h-[38.1mm] p-1 bg-white border print:border-0 rounded-md cursor-pointer hover:bg-gray-200",
-                { "border-blue-500": isSelected },
+                'relative flex h-[38.1mm] w-[63.5mm] cursor-pointer flex-col rounded-md border bg-white p-1 hover:bg-gray-200 print:border-0',
+                { 'border-blue-500': isSelected },
             )}
             onClick={() => onClick(index)}
             draggable="true"
@@ -44,48 +42,30 @@ const Sticker: React.FC<IStickerProps> = ({ sticker, index, isSelected, onClick,
                 <img
                     src={backgroundImageUrl}
                     alt=""
-                    className="absolute opacity-10 print:opacity-20 w-28 h-28 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+                    className="absolute top-1/2 left-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 opacity-10 print:opacity-20"
                 />
             )}
 
-            <div className="h-8 flex justify-between">
-                <div className="flex flex-col">
-                    {sticker?.format && (
-                        <div className="text-center text-xs text-gray-500">
-                            {sticker.format}
-                        </div>
-                    )}
-                </div>
+            <div className="flex h-8 justify-between">
+                <div className="flex flex-col">{sticker?.format && <div className="text-center text-xs text-gray-500">{sticker.format}</div>}</div>
 
                 <div className="flex flex-col">
-                    <div className="flex gap-1 justify-end">
-                        {sticker?.manaSymbols && sanitizeManaSymbols(sticker?.manaSymbols).split('').map((symbol, index) => (
-                            <img
-                                key={index}
-                                src={`/src/assets/images/symbols/${symbol}.svg`}
-                                alt=""
-                                className="w-6 h-6"
-                            />
-                        ))}
+                    <div className="flex justify-end gap-1">
+                        {sticker?.manaSymbols &&
+                            sanitizeManaSymbols(sticker?.manaSymbols)
+                                .split('')
+                                .map((symbol, index) => (
+                                    <img key={index} src={`/src/assets/images/symbols/${symbol}.svg`} alt="" className="h-6 w-6" />
+                                ))}
                     </div>
-                    <div className="text-right text-xs text-gray-500">
-                        {guild}
-                    </div>
+                    <div className="text-right text-xs text-gray-500">{guild}</div>
                 </div>
             </div>
-            <div className="flex flex-col grow items-center justify-center text-center font-beleren text-2xl">
+            <div className="font-beleren flex grow flex-col items-center justify-center text-center text-2xl">
                 {sticker?.title}
-                {sticker?.subtitle && (
-                    <div className="text-sm text-gray-500">
-                        {sticker.subtitle}
-                    </div>
-                )}
+                {sticker?.subtitle && <div className="text-sm text-gray-500">{sticker.subtitle}</div>}
             </div>
-            <div className="h-6 flex items-end justify-between text-gray-500 text-sm text-right">
-                {/* reserved space */}
-            </div>
+            <div className="flex h-6 items-end justify-between text-right text-sm text-gray-500">{/* reserved space */}</div>
         </div>
     );
 }
-
-export default Sticker;
