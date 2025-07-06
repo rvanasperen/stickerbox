@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StickerData as StickerType } from "../types";
+import { StickerData } from "../types";
 
 interface EditorProps {
-    sticker: StickerType | null;
-    onStickerUpdate: (updatedSticker: StickerType) => void;
+    sticker: StickerData | null;
+    onStickerUpdate: (updatedSticker: StickerData) => void;
 }
 
-const defaultFormData: Partial<StickerType> = {
+const defaultFormData: Partial<StickerData> = {
     title: '',
     subtitle: '',
     manaSymbols: '',
@@ -34,7 +34,7 @@ const Editor: React.FC<EditorProps> = ({ sticker, onStickerUpdate }) => {
         };
 
         setFormData(updatedFormData);
-        onStickerUpdate(updatedFormData as StickerType);
+        onStickerUpdate(updatedFormData as StickerData);
     };
 
     return (

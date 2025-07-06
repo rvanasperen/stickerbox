@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import Editor from "./components/Editor";
 import StickerSheet from "./components/StickerSheet";
-import { StickerData as StickerType } from "./types";
+import { StickerData } from "./types";
 import { useReactToPrint } from "react-to-print";
 
 const App: React.FC = () => {
-    const [stickers, setStickers] = useState<StickerType[]>(() => {
+    const [stickers, setStickers] = useState<StickerData[]>(() => {
         const storedStickers = localStorage.getItem('stickers');
         return storedStickers ? JSON.parse(storedStickers) : [];
     });
@@ -26,7 +26,7 @@ const App: React.FC = () => {
         setSelectedStickerIndex(dropIndex);
     };
 
-    const handleStickerUpdate = (newSticker: StickerType) => {
+    const handleStickerUpdate = (newSticker: StickerData) => {
         const newStickers = [...stickers];
         newStickers[selectedStickerIndex] = newSticker;
         setStickers(newStickers);
