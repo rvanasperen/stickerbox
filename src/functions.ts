@@ -79,7 +79,7 @@ export function sanitizeManaSymbols(manaSymbols: string): string {
         return '';
     }
 
-    const sortOrder = ['w', 'u', 'b', 'r', 'g', 'W', 'U', 'B', 'R', 'G'];
+    const sortOrder = ['w', 'u', 'b', 'r', 'g', 'c', 'W', 'U', 'B', 'R', 'G', 'C'];
     const seen = new Set();
 
     const sanitizedSymbols = manaSymbols
