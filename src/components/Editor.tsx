@@ -8,6 +8,7 @@ const defaultFormData: Partial<StickerData> = {
     manaSymbols: [] as ManaSymbol[],
     format: '',
     bracket: undefined,
+    customBackgroundUrl: '',
 };
 
 interface IEditorProps {
@@ -72,6 +73,14 @@ export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
             />
 
             <ManaSymbolSelector label="Color Identity" name="manaSymbols" onChange={handleChange} value={formData.manaSymbols || []} />
+
+            <TextInput
+                label="Custom Background"
+                name="customBackgroundUrl"
+                onChange={handleChange}
+                placeholder="Paste an image URL here"
+                value={formData.customBackgroundUrl || ''}
+            />
         </div>
     );
 }

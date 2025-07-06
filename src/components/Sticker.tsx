@@ -29,7 +29,8 @@ const Sticker = React.forwardRef(function Sticker(
         }
 
         setGuild(getGuildName(sticker.manaSymbols));
-        setBackgroundImageUrl(getBackgroundImageUrl(sticker.manaSymbols) || '');
+        // Use custom background URL if available, otherwise use the default one
+        setBackgroundImageUrl(sticker.customBackgroundUrl || getBackgroundImageUrl(sticker.manaSymbols) || '');
     }, [sticker]);
 
     return (
@@ -54,7 +55,9 @@ const Sticker = React.forwardRef(function Sticker(
                 <img
                     src={backgroundImageUrl}
                     alt=""
-                    className="absolute top-1/2 left-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 opacity-10 transition-opacity print:opacity-25"
+                    className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-15 transition-opacity print:opacity-25 ${
+                        sticker?.customBackgroundUrl ? 'h-full w-full object-cover' : 'h-28 w-28'
+                    }`}
                 />
             )}
 

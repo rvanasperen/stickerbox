@@ -53,6 +53,7 @@ export default function App() {
                 manaSymbols: [],
                 format: '',
                 bracket: undefined,
+                customBackgroundUrl: '',
             };
         }
 
@@ -63,6 +64,7 @@ export default function App() {
                 manaSymbols: [],
                 format: '',
                 bracket: undefined,
+                customBackgroundUrl: '',
             };
         }
 
@@ -84,6 +86,7 @@ export default function App() {
                 manaSymbols: [],
                 format: '',
                 bracket: undefined,
+                customBackgroundUrl: '',
             });
         }
 

@@ -6,4 +6,5 @@ export interface StickerData {
     manaSymbols: ManaSymbol[];
     format: string;
     bracket?: number; // Values from 1 to 5
+    customBackgroundUrl?: string; // URL to a custom background image
 }
