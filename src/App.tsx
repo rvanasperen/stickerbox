@@ -103,11 +103,12 @@ export default function App() {
                 <p className="text-text-light">
                     Supported sticker sheet format: <span className="font-semibold">HERMA 8632</span>
                 </p>
+                <p className="text-text-light mt-2">Click on a sticker to edit it. Drag and drop stickers to rearrange them.</p>
             </header>
 
             <main className="flex flex-col gap-8 md:flex-row">
-                <div className="animate-slide-in md:w-2/3">
-                    <div className="bg-surface mb-4 rounded-lg p-4 shadow-md">
+                <div className="animate-slide-in overflow-x-auto md:w-2/3">
+                    <div className="bg-surface mx-auto mb-4 rounded-lg p-4 shadow-md">
                         <StickerSheet
                             ref={stickerSheetRef}
                             stickers={stickers}
@@ -134,10 +135,6 @@ export default function App() {
                     </div>
                 </div>
             </main>
-
-            <footer className="text-text-light mt-12 text-center text-sm">
-                <p>Drag and drop stickers to rearrange them. Click on a sticker to edit it.</p>
-            </footer>
         </div>
     );
 }
