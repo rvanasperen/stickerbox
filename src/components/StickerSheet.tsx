@@ -52,7 +52,7 @@ const StickerSheet = React.forwardRef(function StickerSheet(
         'w-[210mm] min-w-[210mm] h-[297mm] min-h-[297mm]',
 
         // General styling
-        'grid grid-cols-3 bg-background print:bg-white shadow-lg print:shadow-none rounded-sm',
+        'grid grid-cols-3 bg-gray-50 print:bg-white shadow-lg print:shadow-none rounded-sm',
     );
 
     return (

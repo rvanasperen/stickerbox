@@ -63,7 +63,7 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
     const getSymbolColorClass = (symbol: ManaSymbol): string => {
         const colorMap: Record<ManaSymbol, string> = {
             W: 'bg-amber-50 border-amber-200 hover:bg-amber-100',
-            U: 'bg-blue-50 border-blue-200 hover:bg-blue-100',
+            U: 'bg-blue-100 border-blue-300 hover:bg-blue-200',
             B: 'bg-purple-50 border-purple-200 hover:bg-purple-100',
             R: 'bg-red-50 border-red-200 hover:bg-red-100',
             G: 'bg-green-50 border-green-200 hover:bg-green-100',
@@ -91,7 +91,7 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
 
     return (
         <div className="mb-4">
-            <label className="text-primary-dark mb-1 block text-sm font-bold uppercase">{label}</label>
+            <label className="mb-1 block text-sm font-bold text-blue-700 uppercase">{label}</label>
 
             <div className="mt-2 flex flex-wrap gap-3">
                 {manaSymbols.map((symbol) => (
@@ -99,7 +99,7 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
                         key={symbol}
                         type="button"
                         className={`flex h-12 w-12 items-center justify-center rounded-full border-2 shadow-sm transition-all hover:shadow-md ${
-                            isSymbolSelected(symbol) ? `ring-primary-light ring-2 ${getSymbolColorClass(symbol)}` : getSymbolColorClass(symbol)
+                            isSymbolSelected(symbol) ? `ring-2 ring-blue-700 ${getSymbolColorClass(symbol)}` : getSymbolColorClass(symbol)
                         }`}
                         onClick={() => handleSymbolClick(symbol)}
                         title={getSymbolTitle(symbol)}
@@ -113,7 +113,7 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
                 ))}
             </div>
 
-            {helperText && <p className="text-text-light mt-1 text-xs">{helperText}</p>}
+            {helperText && <p className="mt-1 text-xs text-gray-500">{helperText}</p>}
         </div>
     );
 }

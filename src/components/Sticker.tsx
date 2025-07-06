@@ -37,8 +37,8 @@ const Sticker = React.forwardRef(function Sticker(
             ref={ref}
             className={classNames(
                 'relative flex h-[38.1mm] w-[63.5mm] cursor-pointer flex-col rounded-lg border bg-white p-2 shadow-sm transition-all hover:shadow-md print:border-0 print:shadow-none print:ring-0',
-                isSelected ? 'border-primary-dark ring-primary-light z-10 ring-2' : 'hover:border-primary-light border-gray-200',
-                isDragOver ? 'border-primary ring-primary-light bg-primary-lightest z-10 ring-2' : '',
+                isSelected ? 'z-10 border-blue-700 ring-2 ring-blue-700' : 'border-gray-200 hover:border-blue-600',
+                isDragOver ? 'z-10 border-blue-700 bg-blue-100 ring-2 ring-blue-700' : '',
             )}
             onClick={() => onClick(index)}
             draggable="true"
@@ -60,9 +60,7 @@ const Sticker = React.forwardRef(function Sticker(
 
             <div className="flex h-8 justify-between">
                 <div className="flex flex-col">
-                    {sticker?.format && (
-                        <div className="text-primary-dark rounded-sm bg-gray-100 px-2 py-0.5 text-xs font-medium">{sticker.format}</div>
-                    )}
+                    {sticker?.format && <div className="rounded-sm bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">{sticker.format}</div>}
                 </div>
 
                 <div className="flex flex-col">
@@ -77,18 +75,18 @@ const Sticker = React.forwardRef(function Sticker(
                                 />
                             ))}
                     </div>
-                    <div className="text-secondary-dark text-right text-xs font-medium">{guild}</div>
+                    <div className="text-right text-xs font-medium text-gray-500">{guild}</div>
                 </div>
             </div>
 
-            <div className="text-text font-beleren flex grow flex-col items-center justify-center text-center text-2xl">
+            <div className="font-beleren flex grow flex-col items-center justify-center text-center text-2xl text-gray-700">
                 {sticker?.title}
-                {sticker?.subtitle && <div className="text-text-light mt-1 text-sm font-normal">{sticker.subtitle}</div>}
+                {sticker?.subtitle && <div className="mt-1 text-sm font-normal text-gray-500">{sticker.subtitle}</div>}
             </div>
 
-            <div className="text-text-light flex h-6 items-end justify-between text-right text-xs">
+            <div className="flex h-6 items-end justify-between text-right text-xs text-gray-500">
                 {sticker?.bracket && (
-                    <div className="text-primary-dark rounded-sm bg-gray-100 px-2 py-0.5 text-xs font-medium">Bracket {sticker.bracket}</div>
+                    <div className="rounded-sm bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">Bracket {sticker.bracket}</div>
                 )}
                 {/* reserved space for future sticker input extensions */}
             </div>

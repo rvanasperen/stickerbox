@@ -111,17 +111,17 @@ export default function App() {
 
     return (
         <div className="animate-fade-in container mx-auto max-w-7xl">
-            <header className="border-primary-light mb-8 border-b pb-4">
-                <h1 className="font-beleren text-primary-dark mb-2 text-4xl font-bold">Stickerbox</h1>
-                <p className="text-text-light">
+            <header className="mb-8 border-b border-blue-700 pb-4">
+                <h1 className="font-beleren mb-2 text-4xl font-bold text-blue-700">Stickerbox</h1>
+                <p className="text-gray-500">
                     Supported sticker sheet format: <span className="font-semibold">HERMA 8632</span>
                 </p>
-                <p className="text-text-light mt-2">Click on a sticker to edit it. Drag and drop stickers to rearrange them.</p>
+                <p className="mt-2 text-gray-500">Click on a sticker to edit it. Drag and drop stickers to rearrange them.</p>
             </header>
 
             <main className="flex flex-col gap-8 md:flex-row">
                 <div className="animate-slide-in overflow-x-auto md:w-2/3">
-                    <div className="bg-surface mx-auto mb-4 rounded-lg p-4 shadow-md">
+                    <div className="mx-auto mb-4 rounded-lg bg-white p-4 shadow-md">
                         <StickerSheet
                             ref={stickerSheetRef}
                             stickers={stickers}
@@ -134,13 +134,13 @@ export default function App() {
 
                 <div className="animate-slide-in md:w-1/3" style={{ animationDelay: '0.1s' }}>
                     <div className="sticky top-4">
-                        <div className="bg-surface mb-4 rounded-lg p-6 shadow-md">
-                            <h2 className="font-beleren text-primary-dark mb-4 text-2xl">Editor</h2>
+                        <div className="mb-4 rounded-lg bg-white p-6 shadow-md">
+                            <h2 className="font-beleren mb-4 text-2xl text-blue-700">Editor</h2>
                             <Editor sticker={stickers[selectedStickerIndex] || null} onStickerUpdate={handleStickerUpdate} />
                         </div>
 
                         <button
-                            className="bg-primary hover:bg-primary-dark focus:ring-primary-light w-full rounded-lg px-6 py-3 font-bold text-white shadow-md transition-all hover:shadow-lg focus:ring-2 focus:outline-none"
+                            className="w-full rounded-lg bg-blue-700 px-6 py-3 font-bold text-white shadow-md transition-all hover:bg-blue-800 hover:shadow-lg focus:ring-2 focus:ring-blue-700 focus:outline-none"
                             onClick={handlePrint}
                         >
                             Print Stickers
