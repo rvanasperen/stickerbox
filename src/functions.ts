@@ -8,7 +8,7 @@ export function getBackgroundImageUrl(manaSymbols: ManaSymbol[]): string | null 
     }
 
     if (sanitizedManaSymbols.length === 1) {
-        return `images/symbols/${sanitizedManaSymbols[0]}.svg`;
+        return `/images/symbols/${sanitizedManaSymbols[0]}.svg`;
     }
 
     const guild = getGuildName(sanitizedManaSymbols);
@@ -18,11 +18,11 @@ export function getBackgroundImageUrl(manaSymbols: ManaSymbol[]): string | null 
     }
 
     if (sanitizedManaSymbols.length === 2) {
-        return `images/guilds/${guild.toLowerCase()}.png`;
+        return `/images/guilds/${guild.toLowerCase()}.png`;
     }
 
     if (sanitizedManaSymbols.length === 3) {
-        return `images/guilds/${guild.toLowerCase()}.jpg`;
+        return `/images/guilds/${guild.toLowerCase()}.jpg`;
     }
 
     // Note: 3-color guilds are fan-made. There are no known images for 4/5
