@@ -112,8 +112,9 @@ export default function App() {
     return (
         <div className="animate-fade-in container mx-auto max-w-7xl">
             <header className="mb-8 border-b border-blue-700 pb-4">
-                <h1 className="font-beleren mb-2 text-4xl font-bold text-blue-700">Stickerbox</h1>
-                <p className="text-gray-500">
+                <h1 className="font-beleren text-4xl font-bold text-blue-700">Stickerbox</h1>
+                <p className="mt-2 text-gray-500">A Magic: the Gathering deckbox sticker designer tool.</p>
+                <p className="mt-2 text-gray-500">
                     Supported sticker sheet format: <span className="font-semibold">HERMA 8632</span>
                 </p>
                 <p className="mt-2 text-gray-500">Click on a sticker to edit it. Drag and drop stickers to rearrange them.</p>
@@ -134,7 +135,7 @@ export default function App() {
 
                 <div className="animate-slide-in md:w-1/3" style={{ animationDelay: '0.1s' }}>
                     <div className="sticky top-4">
-                        <div className="mb-4 rounded-lg bg-white p-6 shadow-md">
+                        <div className="mb-4 rounded-lg border border-gray-100 bg-white p-6 shadow-md">
                             <h2 className="font-beleren mb-4 text-2xl text-blue-700">Editor</h2>
                             <Editor sticker={stickers[selectedStickerIndex] || null} onStickerUpdate={handleStickerUpdate} />
                         </div>

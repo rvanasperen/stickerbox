@@ -14,7 +14,7 @@ interface ITextInputProps {
 
 export function TextInput({ helperText, label, name, onChange, placeholder, value, type = 'text', min, max }: ITextInputProps) {
     return (
-        <div className="mb-4">
+        <div>
             <label htmlFor={name} className="mb-1 block text-sm font-bold text-blue-700 uppercase">
                 {label}
             </label>

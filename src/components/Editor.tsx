@@ -28,16 +28,16 @@ export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
-        let newValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+        let newValue: string | boolean | undefined = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
 
-        // Special handling for bracket field
+        // Special handling for the bracket field
         if (name === 'bracket' && value !== '') {
             const bracketValue = parseInt(value as string, 10);
             if (isNaN(bracketValue) || bracketValue < 1 || bracketValue > 5) {
                 // Invalid bracket value, don't update
                 return;
             }
-            newValue = bracketValue;
+            newValue = String(bracketValue);
         } else if (name === 'bracket' && value === '') {
             // Empty bracket value, set to undefined
             newValue = undefined;
@@ -67,14 +67,6 @@ export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
                 value={formData.format || ''}
             />
 
-            <ManaSymbolSelector
-                helperText="(Top right)"
-                label="Mana Symbols"
-                name="manaSymbols"
-                onChange={handleChange}
-                value={formData.manaSymbols || []}
-            />
-
             <TextInput
                 helperText="(Bottom left, values 1-5)"
                 label="Bracket"
@@ -85,6 +77,14 @@ export default function Editor({ sticker, onStickerUpdate }: IEditorProps) {
                 type="number"
                 min={1}
                 max={5}
+            />
+
+            <ManaSymbolSelector
+                helperText="(Top right)"
+                label="Mana Symbols"
+                name="manaSymbols"
+                onChange={handleChange}
+                value={formData.manaSymbols || []}
             />
         </div>
     );

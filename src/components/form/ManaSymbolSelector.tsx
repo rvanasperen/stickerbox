@@ -29,7 +29,7 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
     const toggleSymbol = (currentValue: ManaSymbol[], symbol: ManaSymbol): ManaSymbol[] => {
         // Special handling for colorless (C)
         if (symbol === 'C') {
-            // If C is already selected, just remove it
+            // If C is already selected, remove it
             if (currentValue.includes('C')) {
                 return [];
             }
@@ -107,7 +107,7 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
                         <img
                             src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`}
                             alt={symbol}
-                            className={`h-8 w-8 drop-shadow-sm ${isSymbolSelected(symbol) ? '' : 'opacity-40 grayscale'}`}
+                            className={`h-8 w-8 drop-shadow-sm ${isSymbolSelected(symbol) ? '' : 'opacity-10'}`}
                         />
                     </button>
                 ))}
