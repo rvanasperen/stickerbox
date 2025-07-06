@@ -73,7 +73,7 @@ const Sticker = React.forwardRef(function Sticker(
                                     key={index}
                                     src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`}
                                     alt={symbol}
-                                    className="h-6 w-6 drop-shadow-sm print:drop-shadow-none"
+                                    className="h-5 w-5 drop-shadow-sm print:drop-shadow-none"
                                 />
                             ))}
                     </div>
