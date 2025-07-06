@@ -122,7 +122,7 @@ export default function App() {
 
             <main className="flex flex-col gap-8 md:flex-row">
                 <div className="animate-slide-in overflow-x-auto md:w-2/3">
-                    <div className="mx-auto mb-4 rounded-lg bg-white p-4 shadow-md">
+                    <div className="mx-auto mb-4 rounded-lg border border-gray-100 bg-white p-4 shadow-md">
                         <StickerSheet
                             ref={stickerSheetRef}
                             stickers={stickers}
