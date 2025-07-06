@@ -164,10 +164,11 @@ export default function App() {
                     software
                 </p>
                 <p>
-                    Vibe-coded with ❤️ with help of{' '}
+                    Vibe-coded with help of{' '}
                     <a href="https://www.jetbrains.com/junie/" target="_blank" rel="noopener noreferrer" className="text-blue-700 hover:underline">
                         Junie
-                    </a>
+                    </a>{' '}
+                    ❤
                 </p>
                 <p>
                     Fan-made 3-color guild logos created by{' '}
