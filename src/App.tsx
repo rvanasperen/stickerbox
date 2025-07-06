@@ -2,17 +2,34 @@ import { useEffect, useRef, useState } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import Editor from './components/Editor';
 import StickerSheet from './components/StickerSheet';
+import { manaSymbolsToString, stringToManaSymbols } from './functions';
 import { StickerData } from './types';
 
 export default function App() {
     const [stickers, setStickers] = useState<StickerData[]>(() => {
         const storedStickers = localStorage.getItem('stickers');
-        return storedStickers ? JSON.parse(storedStickers) : [];
+        if (!storedStickers) return [];
+
+        // Parse stickers and convert manaSymbols from string to array
+        const parsedStickers = JSON.parse(storedStickers) as Array<
+            Omit<StickerData, 'manaSymbols'> & {
+                manaSymbols: string;
+            }
+        >;
+        return parsedStickers.map((sticker) => ({
+            ...sticker,
+            manaSymbols: stringToManaSymbols(sticker.manaSymbols),
+        }));
     });
     const [selectedStickerIndex, setSelectedStickerIndex] = useState<number>(0);
 
     useEffect(() => {
-        localStorage.setItem('stickers', JSON.stringify(stickers));
+        // Convert manaSymbols from array to string for storage
+        const stickersForStorage = stickers.map((sticker) => ({
+            ...sticker,
+            manaSymbols: manaSymbolsToString(sticker.manaSymbols),
+        }));
+        localStorage.setItem('stickers', JSON.stringify(stickersForStorage));
     }, [stickers]);
 
     const handleStickerClick = (index: number) => {

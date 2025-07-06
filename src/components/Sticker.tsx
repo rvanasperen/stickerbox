@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import 'keyrune/css/keyrune.css';
 import React, { useEffect, useState } from 'react';
-import { getBackgroundImageUrl, getGuildName, sanitizeManaSymbols } from '../functions';
-import { StickerData } from '../types';
+import { getBackgroundImageUrl, getGuildName } from '../functions';
+import { ManaSymbol, StickerData } from '../types';
 
 interface IStickerProps {
     sticker: StickerData | null;
@@ -52,11 +52,9 @@ export default function Sticker({ sticker, index, isSelected, onClick, onDragSta
                 <div className="flex flex-col">
                     <div className="flex justify-end gap-1">
                         {sticker?.manaSymbols &&
-                            sanitizeManaSymbols(sticker?.manaSymbols)
-                                .split('')
-                                .map((symbol, index) => (
-                                    <img key={index} src={`/src/assets/images/symbols/${symbol}.svg`} alt="" className="h-6 w-6" />
-                                ))}
+                            sticker.manaSymbols.map((symbol: ManaSymbol, index) => (
+                                <img key={index} src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`} alt="" className="h-6 w-6" />
+                            ))}
                     </div>
                     <div className="text-right text-xs text-gray-500">{guild}</div>
                 </div>

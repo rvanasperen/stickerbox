@@ -1,17 +1,18 @@
 import React from 'react';
+import { ManaSymbol } from '../../types';
 
 interface IManaSymbolSelectorProps {
     label: string;
     name: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
-    value: string;
+    value: ManaSymbol[];
     helperText?: string;
 }
 
 export function ManaSymbolSelector({ label, name, onChange, value, helperText }: IManaSymbolSelectorProps) {
-    const manaSymbols = ['W', 'U', 'B', 'R', 'G', 'C'];
+    const manaSymbols: ManaSymbol[] = ['W', 'U', 'B', 'R', 'G', 'C'];
 
-    const handleSymbolClick = (symbol: string) => {
+    const handleSymbolClick = (symbol: ManaSymbol) => {
         // Create a synthetic event to match the onChange interface
         const syntheticEvent = {
             target: {
@@ -24,44 +25,38 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
         onChange(syntheticEvent);
     };
 
-    // Toggle a symbol in the value string
-    const toggleSymbol = (currentValue: string, symbol: string): string => {
-        const lowerSymbol = symbol.toLowerCase();
-        const currentLower = currentValue.toLowerCase();
-
+    // Toggle a symbol in the value array
+    const toggleSymbol = (currentValue: ManaSymbol[], symbol: ManaSymbol): ManaSymbol[] => {
         // Special handling for colorless (C)
-        if (lowerSymbol === 'c') {
+        if (symbol === 'C') {
             // If C is already selected, just remove it
-            if (currentLower.includes('c')) {
-                return '';
+            if (currentValue.includes('C')) {
+                return [];
             }
             // If C is being selected, clear all other symbols
-            return 'c';
+            return ['C'];
         }
 
         // If a WUBRG symbol is clicked and C is currently selected, remove C
-        if (currentLower.includes('c')) {
-            return lowerSymbol;
+        if (currentValue.includes('C')) {
+            return [symbol];
         }
 
-        // If the symbol is already in the string, remove it
-        if (currentLower.includes(lowerSymbol)) {
-            return currentLower
-                .split('')
-                .filter((char) => char.toLowerCase() !== lowerSymbol)
-                .join('');
+        // If the symbol is already in the array, remove it
+        if (currentValue.includes(symbol)) {
+            return currentValue.filter((s) => s !== symbol);
         }
 
         // Otherwise, add it and sort according to WUBRG order
-        const newSymbols = [...currentLower, lowerSymbol];
-        const sortOrder = ['w', 'u', 'b', 'r', 'g'];
+        const newSymbols = [...currentValue, symbol];
+        const sortOrder: ManaSymbol[] = ['W', 'U', 'B', 'R', 'G'];
 
-        return newSymbols.sort((a, b) => sortOrder.indexOf(a) - sortOrder.indexOf(b)).join('');
+        return newSymbols.sort((a, b) => sortOrder.indexOf(a) - sortOrder.indexOf(b));
     };
 
     // Check if a symbol is selected
-    const isSymbolSelected = (symbol: string): boolean => {
-        return value.toLowerCase().includes(symbol.toLowerCase());
+    const isSymbolSelected = (symbol: ManaSymbol): boolean => {
+        return value.includes(symbol);
     };
 
     return (

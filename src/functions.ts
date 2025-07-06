@@ -1,12 +1,14 @@
-export function getBackgroundImageUrl(manaSymbols: string): string | null {
+import { ManaSymbol } from './types';
+
+export function getBackgroundImageUrl(manaSymbols: ManaSymbol[]): string | null {
     const sanitizedManaSymbols = sanitizeManaSymbols(manaSymbols);
 
-    if (!sanitizedManaSymbols) {
+    if (!sanitizedManaSymbols.length) {
         return null;
     }
 
     if (sanitizedManaSymbols.length === 1) {
-        return `/src/assets/images/symbols/${sanitizedManaSymbols}.svg`;
+        return `/src/assets/images/symbols/${sanitizedManaSymbols[0]}.svg`;
     }
 
     const guild = getGuildName(sanitizedManaSymbols);
@@ -29,10 +31,10 @@ export function getBackgroundImageUrl(manaSymbols: string): string | null {
     return null;
 }
 
-export function getGuildName(manaSymbols: string): string {
+export function getGuildName(manaSymbols: ManaSymbol[]): string {
     const sanitizedManaSymbols = sanitizeManaSymbols(manaSymbols);
 
-    if (!sanitizedManaSymbols) {
+    if (!sanitizedManaSymbols.length) {
         return '';
     }
 
@@ -71,29 +73,54 @@ export function getGuildName(manaSymbols: string): string {
         WUBRG: 'Rainbow',
     };
 
-    return guilds[sanitizedManaSymbols.toUpperCase()] || '';
+    // Join the symbols to form a key for the guilds object
+    const key = sanitizedManaSymbols.join('');
+    return guilds[key] || '';
 }
 
-export function sanitizeManaSymbols(manaSymbols: string): string {
-    if (!manaSymbols) {
-        return '';
+export function sanitizeManaSymbols(manaSymbols: ManaSymbol[]): ManaSymbol[] {
+    if (!manaSymbols || manaSymbols.length === 0) {
+        return [];
     }
 
-    const sortOrder = ['w', 'u', 'b', 'r', 'g', 'c', 'W', 'U', 'B', 'R', 'G', 'C'];
-    const seen = new Set();
+    const sortOrder: ManaSymbol[] = ['W', 'U', 'B', 'R', 'G', 'C'];
+    const seen = new Set<ManaSymbol>();
 
-    const sanitizedSymbols = manaSymbols
-        .split('')
-        .filter((char) => {
-            const lowerChar = char.toLowerCase();
-            if (sortOrder.includes(char) && !seen.has(lowerChar)) {
-                seen.add(lowerChar);
+    // Filter out duplicates and invalid symbols
+    return manaSymbols
+        .filter((symbol) => {
+            if (sortOrder.includes(symbol) && !seen.has(symbol)) {
+                seen.add(symbol);
                 return true;
             }
             return false;
         })
-        .sort((a, b) => sortOrder.indexOf(a) - sortOrder.indexOf(b))
-        .join('');
+        .sort((a, b) => sortOrder.indexOf(a) - sortOrder.indexOf(b));
+}
 
-    return sanitizedSymbols || '';
+// Helper function to convert string to ManaSymbol array (for backward compatibility)
+export function stringToManaSymbols(manaString: string): ManaSymbol[] {
+    if (!manaString) {
+        return [];
+    }
+
+    const validSymbols: ManaSymbol[] = ['W', 'U', 'B', 'R', 'G', 'C'];
+    const result: ManaSymbol[] = [];
+    const seen = new Set<ManaSymbol>();
+
+    // Process each character in the string
+    manaString.split('').forEach((char) => {
+        const upperChar = char.toUpperCase() as ManaSymbol;
+        if (validSymbols.includes(upperChar) && !seen.has(upperChar)) {
+            seen.add(upperChar);
+            result.push(upperChar);
+        }
+    });
+
+    return result.sort((a, b) => validSymbols.indexOf(a) - validSymbols.indexOf(b));
+}
+
+// Helper function to convert ManaSymbol array to string (for localStorage)
+export function manaSymbolsToString(manaSymbols: ManaSymbol[]): string {
+    return manaSymbols.join('');
 }
