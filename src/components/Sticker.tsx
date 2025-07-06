@@ -69,7 +69,7 @@ const Sticker = React.forwardRef(function Sticker(
                             sticker.manaSymbols.map((symbol: ManaSymbol, index) => (
                                 <img
                                     key={index}
-                                    src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`}
+                                    src={`images/symbols/${symbol}.svg`}
                                     alt={symbol}
                                     className="h-5 w-5 drop-shadow-sm print:drop-shadow-none"
                                 />
