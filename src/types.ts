@@ -1,4 +1,14 @@
-export type ManaSymbol = 'W' | 'U' | 'B' | 'R' | 'G' | 'C';
+/**
+ * Enum for mana symbols
+ */
+export enum ManaSymbol {
+    White = 'W',
+    Blue = 'U',
+    Black = 'B',
+    Red = 'R',
+    Green = 'G',
+    Colorless = 'C',
+}
 
 export interface StickerData {
     title: string;

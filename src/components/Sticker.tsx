@@ -97,4 +97,4 @@ const Sticker = React.forwardRef(function Sticker(
     );
 });
 
-export default Sticker;
+export default React.memo(Sticker);

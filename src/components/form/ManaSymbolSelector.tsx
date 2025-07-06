@@ -1,4 +1,5 @@
 import React from 'react';
+import { MANA_SYMBOLS, MANA_SYMBOL_COLORS, MANA_SYMBOL_SORT_ORDER } from '../../constants';
 import { ManaSymbol } from '../../types';
 
 interface IManaSymbolSelectorProps {
@@ -9,8 +10,8 @@ interface IManaSymbolSelectorProps {
     helperText?: string;
 }
 
-export function ManaSymbolSelector({ label, name, onChange, value, helperText }: IManaSymbolSelectorProps) {
-    const manaSymbols: ManaSymbol[] = ['W', 'U', 'B', 'R', 'G', 'C'];
+export const ManaSymbolSelector = React.memo(function ManaSymbolSelector({ label, name, onChange, value, helperText }: IManaSymbolSelectorProps) {
+    const manaSymbols: ManaSymbol[] = [...MANA_SYMBOLS];
 
     const handleSymbolClick = (symbol: ManaSymbol) => {
         // Create a synthetic event to match the onChange interface
@@ -49,9 +50,8 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
 
         // Otherwise, add it and sort according to WUBRG order
         const newSymbols = [...currentValue, symbol];
-        const sortOrder: ManaSymbol[] = ['W', 'U', 'B', 'R', 'G'];
 
-        return newSymbols.sort((a, b) => sortOrder.indexOf(a) - sortOrder.indexOf(b));
+        return newSymbols.sort((a, b) => MANA_SYMBOL_SORT_ORDER.indexOf(a) - MANA_SYMBOL_SORT_ORDER.indexOf(b));
     };
 
     // Check if a symbol is selected
@@ -61,15 +61,7 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
 
     // Get color class based on mana symbol
     const getSymbolColorClass = (symbol: ManaSymbol): string => {
-        const colorMap: Record<ManaSymbol, string> = {
-            W: 'bg-amber-50 border-amber-200 hover:bg-amber-100',
-            U: 'bg-blue-100 border-blue-300 hover:bg-blue-200',
-            B: 'bg-purple-50 border-purple-200 hover:bg-purple-100',
-            R: 'bg-red-50 border-red-200 hover:bg-red-100',
-            G: 'bg-green-50 border-green-200 hover:bg-green-100',
-            C: 'bg-gray-50 border-gray-200 hover:bg-gray-100',
-        };
-        return colorMap[symbol];
+        return MANA_SYMBOL_COLORS[symbol];
     };
 
     const getSymbolTitle = (symbol: ManaSymbol): string => {
@@ -116,4 +108,4 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
             {helperText && <p className="mt-1 text-xs text-gray-500">{helperText}</p>}
         </div>
     );
-}
+});

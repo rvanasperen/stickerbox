@@ -1,98 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
-import { useReactToPrint } from 'react-to-print';
 import Editor from './components/Editor';
 import StickerSheet from './components/StickerSheet';
-import { manaSymbolsToString, stringToManaSymbols } from './functions';
-import { StickerData } from './types';
+import { usePrint } from './hooks/usePrint';
+import { useStickers } from './hooks/useStickers';
 
 export default function App() {
-    const [stickers, setStickers] = useState<(StickerData | null)[]>(() => {
-        const storedStickers = localStorage.getItem('stickers');
-        if (!storedStickers) return [];
-
-        // Parse stickers and convert manaSymbols from string to array
-        const parsedStickers = JSON.parse(storedStickers) as Array<
-            Omit<StickerData, 'manaSymbols'> & {
-                manaSymbols: string;
-            }
-        >;
-        return parsedStickers.map((sticker) => {
-            if (!sticker) return null;
-            return {
-                ...sticker,
-                manaSymbols: stringToManaSymbols(sticker.manaSymbols),
-            };
-        });
-    });
-    const [selectedStickerIndex, setSelectedStickerIndex] = useState<number>(0);
-
-    useEffect(() => {
-        // Convert manaSymbols from array to string for storage
-        const stickersForStorage = stickers.map((sticker) => {
-            if (!sticker) return null;
-            return {
-                ...sticker,
-                manaSymbols: manaSymbolsToString(sticker.manaSymbols),
-            };
-        });
-        localStorage.setItem('stickers', JSON.stringify(stickersForStorage));
-    }, [stickers]);
-
-    const handleStickerClick = (index: number) => {
-        setSelectedStickerIndex(index);
-    };
-
-    const handleStickerDragDrop = (dragIndex: number, dropIndex: number) => {
-        const newStickers = [...stickers];
-
-        // Create default empty stickers if they don't exist
-        if (!newStickers[dragIndex]) {
-            newStickers[dragIndex] = {
-                title: '',
-                subtitle: '',
-                manaSymbols: [],
-                format: '',
-                bracket: undefined,
-                customBackgroundUrl: '',
-            };
-        }
-
-        if (!newStickers[dropIndex]) {
-            newStickers[dropIndex] = {
-                title: '',
-                subtitle: '',
-                manaSymbols: [],
-                format: '',
-                bracket: undefined,
-                customBackgroundUrl: '',
-            };
-        }
-
-        // Swap the stickers
-        [newStickers[dragIndex], newStickers[dropIndex]] = [newStickers[dropIndex], newStickers[dragIndex]];
-
-        setStickers(newStickers);
-        setSelectedStickerIndex(dropIndex);
-    };
-
-    const handleStickerUpdate = (newSticker: StickerData) => {
-        const newStickers = [...stickers];
-
-        // Ensure the array has enough elements
-        while (newStickers.length <= selectedStickerIndex) {
-            newStickers.push({
-                title: '',
-                subtitle: '',
-                manaSymbols: [],
-                format: '',
-                bracket: undefined,
-                customBackgroundUrl: '',
-            });
-        }
-
-        newStickers[selectedStickerIndex] = newSticker;
-        setStickers(newStickers);
-    };
+    const { stickers, selectedStickerIndex, handleStickerClick, handleStickerDragDrop, handleStickerUpdate } = useStickers();
 
     const stickerSheetRef = useRef(null);
     const handlePrint = useReactToPrint({

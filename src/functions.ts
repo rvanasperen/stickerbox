@@ -1,3 +1,4 @@
+import { GUILD_NAMES, MANA_SYMBOLS, MANA_SYMBOL_SORT_ORDER } from './constants';
 import { ManaSymbol } from './types';
 
 export function getBackgroundImageUrl(manaSymbols: ManaSymbol[]): string | null {
@@ -38,44 +39,9 @@ export function getGuildName(manaSymbols: ManaSymbol[]): string {
         return '';
     }
 
-    const guilds: { [index: string]: string } = {
-        C: 'Colorless',
-        W: 'White',
-        U: 'Blue',
-        B: 'Black',
-        R: 'Red',
-        G: 'Green',
-        WU: 'Azorius',
-        WB: 'Orzhov',
-        WR: 'Boros',
-        WG: 'Selesnya',
-        UB: 'Dimir',
-        UR: 'Izzet',
-        UG: 'Simic',
-        BR: 'Rakdos',
-        BG: 'Golgari',
-        RG: 'Gruul',
-        WUB: 'Esper',
-        WUR: 'Jeskai',
-        WUG: 'Bant',
-        WBR: 'Mardu',
-        WBG: 'Abzan',
-        WRG: 'Naya',
-        UBR: 'Grixis',
-        UBG: 'Sultai',
-        URG: 'Temur',
-        BRG: 'Jund',
-        WUBR: 'Yore-Tiller',
-        WUBG: 'Witch-Maw',
-        WURG: 'Ink-Treader',
-        WBRG: 'Dune-Brood',
-        UBRG: 'Glint-Eye',
-        WUBRG: 'Rainbow',
-    };
-
-    // Join the symbols to form a key for the guilds object
+    // Join the symbols to form a key for the GUILD_NAMES object
     const key = sanitizedManaSymbols.join('');
-    return guilds[key] || '';
+    return GUILD_NAMES[key] || '';
 }
 
 export function sanitizeManaSymbols(manaSymbols: ManaSymbol[]): ManaSymbol[] {
@@ -83,19 +49,18 @@ export function sanitizeManaSymbols(manaSymbols: ManaSymbol[]): ManaSymbol[] {
         return [];
     }
 
-    const sortOrder: ManaSymbol[] = ['W', 'U', 'B', 'R', 'G', 'C'];
     const seen = new Set<ManaSymbol>();
 
     // Filter out duplicates and invalid symbols
     return manaSymbols
         .filter((symbol) => {
-            if (sortOrder.includes(symbol) && !seen.has(symbol)) {
+            if (MANA_SYMBOL_SORT_ORDER.includes(symbol) && !seen.has(symbol)) {
                 seen.add(symbol);
                 return true;
             }
             return false;
         })
-        .sort((a, b) => sortOrder.indexOf(a) - sortOrder.indexOf(b));
+        .sort((a, b) => MANA_SYMBOL_SORT_ORDER.indexOf(a) - MANA_SYMBOL_SORT_ORDER.indexOf(b));
 }
 
 // Helper function to convert string to ManaSymbol array (for backward compatibility)
@@ -104,20 +69,19 @@ export function stringToManaSymbols(manaString: string): ManaSymbol[] {
         return [];
     }
 
-    const validSymbols: ManaSymbol[] = ['W', 'U', 'B', 'R', 'G', 'C'];
     const result: ManaSymbol[] = [];
     const seen = new Set<ManaSymbol>();
 
     // Process each character in the string
     manaString.split('').forEach((char) => {
         const upperChar = char.toUpperCase() as ManaSymbol;
-        if (validSymbols.includes(upperChar) && !seen.has(upperChar)) {
+        if (MANA_SYMBOLS.includes(upperChar) && !seen.has(upperChar)) {
             seen.add(upperChar);
             result.push(upperChar);
         }
     });
 
-    return result.sort((a, b) => validSymbols.indexOf(a) - validSymbols.indexOf(b));
+    return result.sort((a, b) => MANA_SYMBOL_SORT_ORDER.indexOf(a) - MANA_SYMBOL_SORT_ORDER.indexOf(b));
 }
 
 // Helper function to convert ManaSymbol array to string (for localStorage)
