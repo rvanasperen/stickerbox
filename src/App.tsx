@@ -6,7 +6,7 @@ import { manaSymbolsToString, stringToManaSymbols } from './functions';
 import { StickerData } from './types';
 
 export default function App() {
-    const [stickers, setStickers] = useState<StickerData[]>(() => {
+    const [stickers, setStickers] = useState<(StickerData | null)[]>(() => {
         const storedStickers = localStorage.getItem('stickers');
         if (!storedStickers) return [];
 

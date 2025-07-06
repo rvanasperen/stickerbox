@@ -4,7 +4,7 @@ import { StickerData } from '../types.ts';
 import Sticker from './Sticker.tsx';
 
 interface IStickerSheetProps {
-    stickers: StickerData[];
+    stickers: (StickerData | null)[];
     selectedStickerIndex: number;
     onStickerClick: (index: number) => void;
     onStickerDragDrop: (dragIndex: number, dropIndex: number) => void;
