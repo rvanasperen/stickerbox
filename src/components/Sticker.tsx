@@ -54,7 +54,7 @@ const Sticker = React.forwardRef(function Sticker(
                 <img
                     src={backgroundImageUrl}
                     alt=""
-                    className="absolute top-1/2 left-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 opacity-15 transition-opacity print:opacity-25"
+                    className="absolute top-1/2 left-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 opacity-10 transition-opacity print:opacity-25"
                 />
             )}
 
@@ -81,7 +81,7 @@ const Sticker = React.forwardRef(function Sticker(
 
             <div className="font-beleren flex grow flex-col items-center justify-center text-center text-2xl text-gray-700">
                 {sticker?.title}
-                {sticker?.subtitle && <div className="mt-1 text-sm font-normal text-gray-500">{sticker.subtitle}</div>}
+                {sticker?.subtitle && <div className="text-sm font-normal text-gray-500">{sticker.subtitle}</div>}
             </div>
 
             <div className="flex h-6 items-end justify-between text-right text-xs text-gray-500">
