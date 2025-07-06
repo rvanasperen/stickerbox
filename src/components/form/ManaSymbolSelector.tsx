@@ -59,26 +59,57 @@ export function ManaSymbolSelector({ label, name, onChange, value, helperText }:
         return value.includes(symbol);
     };
 
-    return (
-        <div>
-            <div className="text-sm font-bold text-gray-700 uppercase">{label}</div>
+    // Get color class based on mana symbol
+    const getSymbolColorClass = (symbol: ManaSymbol): string => {
+        const colorMap: Record<ManaSymbol, string> = {
+            W: 'bg-amber-50 border-amber-200 hover:bg-amber-100',
+            U: 'bg-blue-50 border-blue-200 hover:bg-blue-100',
+            B: 'bg-purple-50 border-purple-200 hover:bg-purple-100',
+            R: 'bg-red-50 border-red-200 hover:bg-red-100',
+            G: 'bg-green-50 border-green-200 hover:bg-green-100',
+            C: 'bg-gray-50 border-gray-200 hover:bg-gray-100',
+        };
+        return colorMap[symbol];
+    };
 
-            <div className="mt-2 flex gap-2">
+    const getSymbolTitle = (symbol: ManaSymbol): string => {
+        switch (symbol) {
+            case 'W':
+                return 'White';
+            case 'U':
+                return 'Blue';
+            case 'B':
+                return 'Black';
+            case 'R':
+                return 'Red';
+            case 'G':
+                return 'Green';
+            default:
+                return 'Colorless';
+        }
+    };
+
+    return (
+        <div className="mb-4">
+            <label className="text-primary-dark mb-1 block text-sm font-bold uppercase">{label}</label>
+
+            <div className="mt-2 flex flex-wrap gap-3">
                 {manaSymbols.map((symbol) => (
                     <button
                         key={symbol}
                         type="button"
-                        className={`flex h-10 w-10 items-center justify-center rounded-full ${
-                            isSymbolSelected(symbol) ? 'border-2 border-blue-500 bg-gray-200' : 'border border-gray-300 bg-gray-100'
+                        className={`flex h-12 w-12 items-center justify-center rounded-full border-2 shadow-sm transition-all hover:shadow-md ${
+                            isSymbolSelected(symbol) ? `ring-primary-light ring-2 ${getSymbolColorClass(symbol)}` : getSymbolColorClass(symbol)
                         }`}
                         onClick={() => handleSymbolClick(symbol)}
+                        title={getSymbolTitle(symbol)}
                     >
-                        <img src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`} alt={symbol} className="h-6 w-6" />
+                        <img src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`} alt={symbol} className="h-8 w-8 drop-shadow-sm" />
                     </button>
                 ))}
             </div>
 
-            {helperText && <p className="mt-1 text-xs text-gray-500">{helperText}</p>}
+            {helperText && <p className="text-text-light mt-1 text-xs">{helperText}</p>}
         </div>
     );
 }

@@ -33,23 +33,32 @@ const StickerSheet = React.forwardRef(function StickerSheet(
         'w-[210mm] min-w-[210mm] h-[297mm] min-h-[297mm]',
 
         // General styling
-        'grid grid-cols-3 bg-slate-100 print:bg-white',
+        'grid grid-cols-3 bg-background print:bg-white shadow-lg rounded-sm overflow-hidden',
     );
 
     return (
-        <div className={classes} ref={ref}>
-            {[...Array(21)].map((_, index) => (
-                <Sticker
-                    key={index}
-                    sticker={stickers[index]}
-                    index={index}
-                    isSelected={selectedStickerIndex === index}
-                    onClick={onStickerClick}
-                    onDragStart={handleDragStart}
-                    // onDragOver={(e) => e.preventDefault()}
-                    onDrop={handleDrop}
-                />
-            ))}
+        <div className="relative">
+            <div className="absolute -top-6 right-0 left-0 flex justify-center">
+                <div className="bg-primary-light rounded-t-md px-3 py-1 text-xs font-medium text-white shadow-sm">A4 Sticker Sheet</div>
+            </div>
+
+            <div className={classes} ref={ref}>
+                {[...Array(21)].map((_, index) => (
+                    <Sticker
+                        key={index}
+                        sticker={stickers[index]}
+                        index={index}
+                        isSelected={selectedStickerIndex === index}
+                        onClick={onStickerClick}
+                        onDragStart={handleDragStart}
+                        onDrop={handleDrop}
+                    />
+                ))}
+            </div>
+
+            <div className="absolute right-0 -bottom-6 left-0 flex justify-center">
+                <div className="text-text-light text-xs">{paperTemplate} • 210mm × 297mm</div>
+            </div>
         </div>
     );
 });

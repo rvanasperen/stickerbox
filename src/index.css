@@ -2,6 +2,17 @@
 
 @theme {
   --font-beleren: Beleren Bold, sans-serif;
+  --color-primary: #2e7d32;
+  --color-primary-light: #4caf50;
+  --color-primary-dark: #1b5e20;
+  --color-secondary: #7b1fa2;
+  --color-secondary-light: #9c27b0;
+  --color-secondary-dark: #4a148c;
+  --color-accent: #ff9800;
+  --color-background: #f5f7fa;
+  --color-surface: #ffffff;
+  --color-text: #333333;
+  --color-text-light: #666666;
 }
 
 /*
@@ -20,6 +31,25 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    min-height: 100vh;
+    padding: 2rem;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-primary-dark);
+  }
+
+  button {
+    transition: all 0.2s ease-in-out;
+  }
+
+  input, select, textarea {
+    transition: all 0.2s ease-in-out;
+  }
 }
 
 @font-face {
@@ -31,4 +61,23 @@
     font-style: normal;
     font-weight: bold;
     text-rendering: optimizeLegibility;
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-in-out;
 }

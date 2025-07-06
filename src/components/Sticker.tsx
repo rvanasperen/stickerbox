@@ -29,8 +29,8 @@ export default function Sticker({ sticker, index, isSelected, onClick, onDragSta
     return (
         <div
             className={classNames(
-                'relative flex h-[38.1mm] w-[63.5mm] cursor-pointer flex-col rounded-md border bg-white p-1 hover:bg-gray-200 print:border-0',
-                { 'border-blue-500': isSelected },
+                'relative flex h-[38.1mm] w-[63.5mm] cursor-pointer flex-col rounded-lg border bg-white p-2 shadow-sm transition-all hover:shadow-md print:border-0 print:shadow-none print:ring-0',
+                isSelected ? 'border-primary-dark ring-primary-light z-10 ring-2' : 'hover:border-primary-light border-gray-200',
             )}
             onClick={() => onClick(index)}
             draggable="true"
@@ -42,28 +42,41 @@ export default function Sticker({ sticker, index, isSelected, onClick, onDragSta
                 <img
                     src={backgroundImageUrl}
                     alt=""
-                    className="absolute top-1/2 left-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 opacity-10 print:opacity-20"
+                    className="absolute top-1/2 left-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 opacity-15 transition-opacity print:opacity-25"
                 />
             )}
 
             <div className="flex h-8 justify-between">
-                <div className="flex flex-col">{sticker?.format && <div className="text-center text-xs text-gray-500">{sticker.format}</div>}</div>
+                <div className="flex flex-col">
+                    {sticker?.format && (
+                        <div className="text-primary-dark rounded-sm bg-gray-100 px-2 py-0.5 text-xs font-medium">{sticker.format}</div>
+                    )}
+                </div>
 
                 <div className="flex flex-col">
                     <div className="flex justify-end gap-1">
                         {sticker?.manaSymbols &&
                             sticker.manaSymbols.map((symbol: ManaSymbol, index) => (
-                                <img key={index} src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`} alt="" className="h-6 w-6" />
+                                <img
+                                    key={index}
+                                    src={`/src/assets/images/symbols/${symbol.toLowerCase()}.svg`}
+                                    alt={symbol}
+                                    className="h-6 w-6 drop-shadow-sm"
+                                />
                             ))}
                     </div>
-                    <div className="text-right text-xs text-gray-500">{guild}</div>
+                    <div className="text-secondary-dark text-right text-xs font-medium">{guild}</div>
                 </div>
             </div>
-            <div className="font-beleren flex grow flex-col items-center justify-center text-center text-2xl">
+
+            <div className="text-text font-beleren flex grow flex-col items-center justify-center text-center text-2xl">
                 {sticker?.title}
-                {sticker?.subtitle && <div className="text-sm text-gray-500">{sticker.subtitle}</div>}
+                {sticker?.subtitle && <div className="text-text-light mt-1 text-sm font-normal">{sticker.subtitle}</div>}
             </div>
-            <div className="flex h-6 items-end justify-between text-right text-sm text-gray-500">{/* reserved space */}</div>
+
+            <div className="text-text-light flex h-6 items-end justify-between text-right text-xs">
+                {/* reserved space for future sticker input extensions */}
+            </div>
         </div>
     );
 }
